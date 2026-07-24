@@ -1,78 +1,96 @@
-import { useState } from 'react'
 import './App.css'
 
+const features = [
+  {
+    title: 'Fluid Motion',
+    text: 'Smooth transitions and floating accents create a premium, modern feel.',
+  },
+  {
+    title: 'Dark Neon UI',
+    text: 'Glowing gradients and glassmorphism-inspired cards give the page depth.',
+  },
+  {
+    title: 'Responsive by Design',
+    text: 'Looks sharp on mobile, tablet, and desktop with adaptive layouts.',
+  },
+]
+
 function App() {
-  const [task, setTask] = useState('')
-  const [todos, setTodos] = useState([])
-
-  const addTodo = (e) => {
-    e.preventDefault()
-    const trimmed = task.trim()
-    if (!trimmed) return
-
-    const newTodo = {
-      id: Date.now(),
-      text: trimmed,
-      completed: false,
-    }
-
-    setTodos((prev) => [newTodo, ...prev])
-    setTask('')
-  }
-
-  const toggleTodo = (id) => {
-    setTodos((prev) =>
-      prev.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    )
-  }
-
-  const deleteTodo = (id) => {
-    setTodos((prev) => prev.filter((todo) => todo.id !== id))
-  }
-
   return (
-    <main className="app">
-      <h1>Todo App</h1>
+    <main className="page-shell">
+      <section className="hero">
+        <div className="orb orb-one" />
+        <div className="orb orb-two" />
+        <div className="orb orb-three" />
 
-      <form onSubmit={addTodo} className="todo-form">
-        <input
-          type="text"
-          placeholder="Enter a task..."
-          value={task}
-          onChange={(e) => setTask(e.target.value)}
-        />
-        <button type="submit">Add</button>
-      </form>
+        <nav className="topbar">
+          <div className="brand">
+            <span className="brand-dot" />
+            NeonFlow
+          </div>
+          <div className="topbar-links">
+            <a href="#features">Features</a>
+            <a href="#preview">Preview</a>
+          </div>
+        </nav>
 
-      {todos.length === 0 ? (
-        <p>No tasks yet. Add one above 👆</p>
-      ) : (
-        <ul className="todo-list">
-          {todos.map((todo) => (
-            <li key={todo.id} className="todo-item">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={todo.completed}
-                  onChange={() => toggleTodo(todo.id)}
-                />
-                <span
-                  style={{
-                    textDecoration: todo.completed ? 'line-through' : 'none',
-                    opacity: todo.completed ? 0.6 : 1,
-                  }}
-                >
-                  {todo.text}
-                </span>
-              </label>
+        <div className="hero-content">
+          <div className="hero-copy">
+            <span className="eyebrow">Modern animation website</span>
+            <h1>Craft immersive experiences with motion, light, and depth.</h1>
+            <p>
+              Build a visually striking web presence with layered gradients,
+              animated glow, and sleek cards that feel alive.
+            </p>
 
-              <button onClick={() => deleteTodo(todo.id)}>Delete</button>
-            </li>
-          ))}
-        </ul>
-      )}
+            <div className="hero-actions">
+              <a className="primary-btn" href="#preview">
+                Explore the design
+              </a>
+              <a className="secondary-btn" href="#features">
+                See features
+              </a>
+            </div>
+          </div>
+
+          <div className="hero-preview" id="preview">
+            <div className="preview-panel glass-card">
+              <div className="panel-header">
+                <span />
+                <span />
+                <span />
+              </div>
+              <div className="panel-body">
+                <div className="stats-row">
+                  <div>
+                    <strong>98%</strong>
+                    <span>motion smoothness</span>
+                  </div>
+                  <div>
+                    <strong>24/7</strong>
+                    <span>visual impact</span>
+                  </div>
+                </div>
+                <div className="animated-grid">
+                  <div className="grid-card tall" />
+                  <div className="grid-card" />
+                  <div className="grid-card wide" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="features" id="features">
+        {features.map((feature, index) => (
+          <article className="feature-card glass-card" key={feature.title}>
+            <span className="feature-index">0{index + 1}</span>
+            <h2>{feature.title}</h2>
+            <p>{feature.text}</p>
+          </article>
+        ))}
+      </section>
     </main>
   )
 }
